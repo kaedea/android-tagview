@@ -21,6 +21,7 @@ import com.example.demo_cloud_tagview.R;
 /**
  * Android TagView Widget
  * Copy Right Kaede & Namito.S
+ * github https://github.com/kidhaibara/Android-Cloud-TagView-Plus.git
  */
 public class TagView extends RelativeLayout {
 
