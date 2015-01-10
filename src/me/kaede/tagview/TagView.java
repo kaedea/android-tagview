@@ -25,7 +25,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,8 +71,6 @@ public class TagView extends RelativeLayout {
 	float textMarginRight;
 	float textMarginTop;
 	float textMarginBottom;
-	
-	
 	
 	
 	/**
@@ -132,12 +129,12 @@ public class TagView extends RelativeLayout {
 
 		// get AttributeSet
 		TypedArray typeArray = ctx.obtainStyledAttributes(attrs, R.styleable.TagView, defStyle, defStyle);
-		this.lineMargin =typeArray.getFloat(R.styleable.TagView_lineMargin, Constants.TAG_LAYOUT_BOTTOM_MARGIN);
-		this.tagMargin =typeArray.getFloat(R.styleable.TagView_tagMargin, Constants.TAG_LAYOUT_LEFT_MARGIN);
-		this.textMarginLeft =typeArray.getFloat(R.styleable.TagView_textMarginLeft, Constants.INNER_VIEW_PADDING_LEFT);
-		this.textMarginRight =typeArray.getFloat(R.styleable.TagView_textMarginRight, Constants.INNER_VIEW_PADDING_RIGHT);
-		this.textMarginTop =typeArray.getFloat(R.styleable.TagView_textMarginTop, Constants.INNER_VIEW_PADDING_TOP);
-		this.textMarginBottom =typeArray.getFloat(R.styleable.TagView_textMarginBottom, Constants.INNER_VIEW_PADDING_BOTTOM);
+		this.lineMargin =typeArray.getFloat(R.styleable.TagView_lineMargin, Constants.DEFAULT_LINE_MARGIN);
+		this.tagMargin =typeArray.getFloat(R.styleable.TagView_tagMargin, Constants.DEFAULT_TAG_MARGIN);
+		this.textMarginLeft =typeArray.getFloat(R.styleable.TagView_textMarginLeft, Constants.DEFAULT_TAG_TEXT_PADDING_LEFT);
+		this.textMarginRight =typeArray.getFloat(R.styleable.TagView_textMarginRight, Constants.DEFAULT_TAG_TEXT_PADDING_RIGHT);
+		this.textMarginTop =typeArray.getFloat(R.styleable.TagView_textMarginTop, Constants.DEFAULT_TAG_TEXT_PADDING_TOP);
+		this.textMarginBottom =typeArray.getFloat(R.styleable.TagView_textMarginBottom, Constants.DEFAULT_TAG_TEXT_PADDING_BOTTOM);
 		typeArray.recycle();
 	}
 
@@ -175,20 +172,20 @@ public class TagView extends RelativeLayout {
 
 		// layout padding left & layout padding right
 		float total = getPaddingLeft() + getPaddingRight();
-		// 現在位置のindex
-		int index = 1;
-		// 相対位置起点
-		int pindex = index;
+
 
 		// List Index
-		int listIndex = 0;
+		int listIndex = 1;
+		int index_bottom=1;
+		int index_header=1;
+		Tag tag_pre=null;
 		for (Tag item : mTags) {
-			final int position = listIndex;
+			final int position = listIndex-1;
 			final Tag tag = item;
 
 			// inflate tag layout
 			View tagLayout = (View) mInflater.inflate(R.layout.item_tagview, null);
-			tagLayout.setId(index);
+			tagLayout.setId(listIndex);
 			tagLayout.setBackgroundDrawable(getSelector(tag));
 
 			// tag text
@@ -218,7 +215,7 @@ public class TagView extends RelativeLayout {
 			if (tag.isDeletable) {
 				deletableView.setVisibility(View.VISIBLE);
 				deletableView.setText(tag.deleteIcon);
-				deletableView.setPadding(Utils.dipToPx(this.getContext(),textMarginLeft), Utils.dipToPx(this.getContext(),textMarginTop), Utils.dipToPx(this.getContext(),textMarginRight), Utils.dipToPx(this.getContext(),textMarginBottom));
+				deletableView.setPadding(0, Utils.dipToPx(this.getContext(),textMarginTop), Utils.dipToPx(this.getContext(),textMarginRight), Utils.dipToPx(this.getContext(),textMarginBottom));
 				deletableView.setTextColor(tag.deleteIndicatorColor);
 				deletableView.setTextSize(Utils.spToPx(getContext(), tag.deleteIndicatorSize));
 				deletableView.setOnClickListener(new OnClickListener() {
@@ -241,26 +238,39 @@ public class TagView extends RelativeLayout {
 			}
 
 			LayoutParams tagParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-			tagParams.setMargins(0, 0, 0, 0);
+			//tagParams.setMargins(0, 0, 0, 0);
+			//添加行距
 			tagParams.bottomMargin = Utils.dipToPx(this.getContext(),lineMargin);
+			
 			if (mWidth <= total + tagWidth + Utils.dipToPx(this.getContext(),Constants.LAYOUT_WIDTH_OFFSET)) {
-				tagParams.addRule(RelativeLayout.BELOW, pindex);
+				//换行
+				tagParams.addRule(RelativeLayout.BELOW, index_bottom);
 				// initialize total param (layout padding left & layout padding
 				// right)
 				total = getPaddingLeft() + getPaddingRight();
-				pindex = index;
+				index_bottom = listIndex;
+				index_header =listIndex;
 			} else {
-				tagParams.addRule(RelativeLayout.ALIGN_TOP, pindex);
-				tagParams.addRule(RelativeLayout.RIGHT_OF, index - 1);
-				if (index > 1) {
+				//加在后面
+				tagParams.addRule(RelativeLayout.ALIGN_TOP, index_header);
+				//不是每行的第一个
+				if (listIndex!=index_header) {
+					tagParams.addRule(RelativeLayout.RIGHT_OF, listIndex - 1);
 					tagParams.leftMargin = Utils.dipToPx(this.getContext(),tagMargin);
 					total += Utils.dipToPx(this.getContext(),tagMargin);
+					if (tag_pre!=null&&tag_pre.tagTextSize<tag.tagTextSize) {
+						index_bottom = listIndex;
+					}
 				}
+				
+				
+				
 			}
 			total += tagWidth;
 			addView(tagLayout, tagParams);
-			index++;
+			tag_pre=tag;
 			listIndex++;
+			
 		}
 
 	}

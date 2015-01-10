@@ -9,7 +9,7 @@
     tools:context="com.example.demo_cloud_tagview.MainActivity" xmlns:app="http://schemas.android.com/apk/res/com.example.demo_cloud_tagview">
     
     <me.kaede.tagview.TagView 
-        android:id="@+id/tagview"
+    android:id="@+id/tagview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
         

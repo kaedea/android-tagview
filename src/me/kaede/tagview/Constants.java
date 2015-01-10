@@ -8,12 +8,12 @@ public class Constants {
 	//use dp and sp, not px
 	
 	//----------------- separator TagView-----------------//
-	public static final int TAG_LAYOUT_BOTTOM_MARGIN = 5;
-	public static final int TAG_LAYOUT_LEFT_MARGIN = 5;
-	public static final int INNER_VIEW_PADDING_LEFT = 8;
-	public static final int INNER_VIEW_PADDING_TOP = 5;
-	public static final int INNER_VIEW_PADDING_RIGHT = 8;
-	public static final int INNER_VIEW_PADDING_BOTTOM = 5;
+	public static final int DEFAULT_LINE_MARGIN = 5;
+	public static final int DEFAULT_TAG_MARGIN = 5;
+	public static final int DEFAULT_TAG_TEXT_PADDING_LEFT = 8;
+	public static final int DEFAULT_TAG_TEXT_PADDING_TOP = 5;
+	public static final int DEFAULT_TAG_TEXT_PADDING_RIGHT = 8;
+	public static final int DEFAULT_TAG_TEXT_PADDING_BOTTOM = 5;
 	
 	public static final int LAYOUT_WIDTH_OFFSET = 2;
 	
@@ -22,7 +22,7 @@ public class Constants {
 	public static final int DEFAULT_TAG_DELETE_INDICATOR_SIZE = 7;
 	public static final int DEFAULT_TAG_RADIUS = 7;
 	public static final int DEFAULT_TAG_LAYOUT_COLOR = Color.parseColor("#00BFFF");
-	public static final int DEFAULT_TAG_LAYOUT_COLOR_PRESS = Color.parseColor("#363636");
+	public static final int DEFAULT_TAG_LAYOUT_COLOR_PRESS = Color.parseColor("#88363636");
 	public static final int DEFAULT_TAG_TEXT_COLOR = Color.parseColor("#ffffff");
 	public static final int DEFAULT_TAG_DELETE_INDICATOR_COLOR = Color.parseColor("#ffffff");
 	public static final String DEFAULT_TAG_DELETE_ICON = "×";
