@@ -17,9 +17,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		
-//		TagView tagView = new TagView(this, null);
 		TagView tagView = (TagView) this.findViewById(R.id.tagview);
-		//tagView.setDeletable(true);
+		//ADD TAG
 		Tag tag1=new Tag( "TAG1");
 		tagView.add(tag1);
 		Tag tag2=new Tag( "TAG2 TAG2");
@@ -56,10 +55,30 @@ public class MainActivity extends Activity {
 		Tag tag10 =new Tag(123, "TAG10", "#48EBA9");
 		tag10.tagTextSize=4;
 		tagView.add(tag10);
+		
+		Tag tag11 = new Tag("TAG11", "#FFC125");
+		tagView.add(tag11);
+		
+		Tag tag12 = new Tag("TAG122", "#FFC125");
+		tagView.add(tag12);
+		
+		Tag tag13 = new Tag("TAG1333", "#FFC125");
+		tagView.add(tag13);
+		
+		Tag tag14 = new Tag("TAG14444", "#FFC125");
+		tagView.add(tag14);
+		
+		Tag tag15 = new Tag("TAG155555", "#FFC125");
+		tagView.add(tag15);
+		
+		Tag tag16 = new Tag("TAG1666666", "#FFC125");
+		tagView.add(tag16);
+		
+		//SET LISTENER
 		tagView.setOnTagClickListener(new OnTagClickListener() {
 			
 			@Override
-			public void onTagSelected(Tag tag, int position) {
+			public void onTagClick(Tag tag, int position) {
 				Toast.makeText(MainActivity.this, "click tag id="+tag.id+" position="+position, Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -70,6 +89,16 @@ public class MainActivity extends Activity {
 				Toast.makeText(MainActivity.this, "delete tag id="+tag.id+" position="+position, Toast.LENGTH_SHORT).show();
 			}
 		});
+		
+		
+		//You can also create TagView by
+		TagView tagview2 = new TagView(this);
+		tagview2.setLineMargin(20f);//dp
+		tagview2.setTagMargin(20f);
+		tagview2.setTextPaddingLeft(20f);
+		tagview2.setTextPaddingTop(20f);
+		tagview2.setTextPaddingRight(20f);
+		tagview2.setTexPaddingBottom(20f);
 		
 	}
 

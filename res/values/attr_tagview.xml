@@ -3,9 +3,9 @@
     <declare-styleable name="TagView">
         <attr name="lineMargin" format="dimension" />
         <attr name="tagMargin" format="dimension" />
-        <attr name="textMarginLeft" format="dimension" />
-        <attr name="textMarginRight" format="dimension" />
-        <attr name="textMarginTop" format="dimension" />
-        <attr name="textMarginBottom" format="dimension" />
+        <attr name="textPaddingLeft" format="dimension" />
+        <attr name="textPaddingRight" format="dimension" />
+        <attr name="textPaddingTop" format="dimension" />
+        <attr name="textPaddingBottom" format="dimension" />
     </declare-styleable>
 </resources>

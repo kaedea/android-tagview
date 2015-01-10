@@ -1,8 +1,8 @@
 package me.kaede.tagview;
 
 /**
- * listener for tag select
+ * listener for tag delete
  */
 public interface OnTagClickListener {
-	void onTagSelected(Tag tag, int position);
+	void onTagClick(Tag tag, int position);
 }
