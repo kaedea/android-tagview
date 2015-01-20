@@ -10,8 +10,14 @@
 - 能监听标签的点击和删除事件
 - 支持从代码或者XML创建TagView
 
+>To-Do List
+- 动画效果
+- Gradle, Maven适配
+
 
 >Substitute
 
 - https://github.com/namito/TagCloudLinkView
 - https://github.com/mcharmas/android-tagview
+
+
