@@ -11,9 +11,9 @@
 - 支持从代码或者XML创建TagView
 
 >To-Do List
+
 - 动画效果
 - Gradle, Maven适配
-
 
 >Substitute
 
