@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TagView"><attr format="dimension" name="lineMargin"/><attr format="dimension" name="tagMargin"/><attr format="dimension" name="textPaddingLeft"/><attr format="dimension" name="textPaddingRight"/><attr format="dimension" name="textPaddingTop"/><attr format="dimension" name="textPaddingBottom"/></declare-styleable>
+    <!-- From: file:/D:/Documents/AndroidStudio/demo_cloud_tagview/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/D:/Documents/AndroidStudio/demo_cloud_tagview/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">demo_cloud_tagview</string>
+    <string name="hello_world">Hello world!</string>
+</resources>
