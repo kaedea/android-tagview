@@ -18,7 +18,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int lineMargin=0x7f010000;
+        public static int lineMargin=0x7f010000;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -28,7 +28,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int tagMargin=0x7f010001;
+        public static int tagMargin=0x7f010001;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -38,7 +38,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int textPaddingBottom=0x7f010005;
+        public static int textPaddingBottom=0x7f010005;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -48,7 +48,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int textPaddingLeft=0x7f010002;
+        public static int textPaddingLeft=0x7f010002;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -58,7 +58,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int textPaddingRight=0x7f010003;
+        public static int textPaddingRight=0x7f010003;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -68,29 +68,18 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int textPaddingTop=0x7f010004;
-    }
-    public static final class dimen {
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static int textPaddingTop=0x7f010004;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int shape_tagview=0x7f020001;
+        public static int ic_launcher=0x7f020000;
+        public static int shape_tagview=0x7f020001;
     }
     public static final class id {
-        public static final int tagview=0x7f060000;
-        public static final int tv_tag_item_contain=0x7f060001;
-        public static final int tv_tag_item_delete=0x7f060002;
+        public static int tv_tag_item_contain=0x7f040000;
+        public static int tv_tag_item_delete=0x7f040001;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int item_tagview=0x7f030001;
-    }
-    public static final class string {
-        public static final int action_settings=0x7f050000;
-        public static final int app_name=0x7f050001;
-        public static final int hello_world=0x7f050002;
+        public static int item_tagview=0x7f030000;
     }
     public static final class styleable {
         /** Attributes that can be used with a TagView.
@@ -132,7 +121,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.example.demo_cloud_tagview:lineMargin
         */
-        public static final int TagView_lineMargin = 0;
+        public static int TagView_lineMargin = 0;
         /**
           <p>This symbol is the offset where the {@link com.example.demo_cloud_tagview.R.attr#tagMargin}
           attribute's value can be found in the {@link #TagView} array.
@@ -148,7 +137,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.example.demo_cloud_tagview:tagMargin
         */
-        public static final int TagView_tagMargin = 1;
+        public static int TagView_tagMargin = 1;
         /**
           <p>This symbol is the offset where the {@link com.example.demo_cloud_tagview.R.attr#textPaddingBottom}
           attribute's value can be found in the {@link #TagView} array.
@@ -164,7 +153,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.example.demo_cloud_tagview:textPaddingBottom
         */
-        public static final int TagView_textPaddingBottom = 5;
+        public static int TagView_textPaddingBottom = 5;
         /**
           <p>This symbol is the offset where the {@link com.example.demo_cloud_tagview.R.attr#textPaddingLeft}
           attribute's value can be found in the {@link #TagView} array.
@@ -180,7 +169,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.example.demo_cloud_tagview:textPaddingLeft
         */
-        public static final int TagView_textPaddingLeft = 2;
+        public static int TagView_textPaddingLeft = 2;
         /**
           <p>This symbol is the offset where the {@link com.example.demo_cloud_tagview.R.attr#textPaddingRight}
           attribute's value can be found in the {@link #TagView} array.
@@ -196,7 +185,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.example.demo_cloud_tagview:textPaddingRight
         */
-        public static final int TagView_textPaddingRight = 3;
+        public static int TagView_textPaddingRight = 3;
         /**
           <p>This symbol is the offset where the {@link com.example.demo_cloud_tagview.R.attr#textPaddingTop}
           attribute's value can be found in the {@link #TagView} array.
@@ -212,6 +201,6 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.example.demo_cloud_tagview:textPaddingTop
         */
-        public static final int TagView_textPaddingTop = 4;
+        public static int TagView_textPaddingTop = 4;
     };
 }

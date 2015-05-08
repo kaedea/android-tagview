@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
-    <corners android:radius="5dp"/>
-    <solid android:color="#00BFFF"/>
-
-</shape>
-<!-- From: file:/D:/Documents/AndroidStudio/demo_cloud_tagview/app/src/main/res/drawable/shape_tagview.xml -->

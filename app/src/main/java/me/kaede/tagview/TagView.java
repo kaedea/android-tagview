@@ -3,6 +3,7 @@ package me.kaede.tagview;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
@@ -139,13 +140,15 @@ public class TagView extends RelativeLayout {
 		mWidth = w;
 	}
 
-	
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        drawTags();
+    }
 
-	/**
+    /**
 	 * tag draw
 	 */
-	@SuppressLint("InflateParams")
-	@SuppressWarnings("deprecation")
 	private void drawTags() {
 
 		if (!mInitialized) {
@@ -278,13 +281,21 @@ public class TagView extends RelativeLayout {
 	//----------------- separator  -----------------//
 	
 	/**
-	 * add Tag
-	 * 
+	 *
 	 * @param tag
 	 */
-	public void add(Tag tag) {
+	public void addTag(Tag tag) {
 		mTags.add(tag);
+        drawTags();
 	}
+
+    public void addTags(String[] tags){
+        if (tags==null)return;
+        for(String item:tags){
+            Tag tag = new Tag(item);
+            addTag(tag);
+        }
+    }
 
 	/**
 	 * get tag list

@@ -3,4 +3,14 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string-array name="continents">
+        <item>AFRICA</item>
+        <item>EUROPE</item>
+        <item>ASIA</item>
+        <item>NORTH AMERICA</item>
+        <item>SOUTH AMERICA</item>
+        <item>ANTARCTICA</item>
+        <item>AUSTRALIA</item>
+    </string-array>
+    <string name="title_activity_second">SecondActivity</string>
 </resources>
