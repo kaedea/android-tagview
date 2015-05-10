@@ -5,10 +5,9 @@ int attr textPaddingLeft 0x7f010002
 int attr textPaddingRight 0x7f010003
 int attr textPaddingTop 0x7f010004
 int drawable ic_launcher 0x7f020000
-int drawable shape_tagview 0x7f020001
 int id tv_tag_item_contain 0x7f040000
 int id tv_tag_item_delete 0x7f040001
-int layout item_tagview 0x7f030000
+int layout tagview_item 0x7f030000
 int[] styleable TagView { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005 }
 int styleable TagView_lineMargin 0
 int styleable TagView_tagMargin 1

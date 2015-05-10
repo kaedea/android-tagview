@@ -11,6 +11,7 @@
         android:layout_centerInParent="true"
         android:textColor="#FFFFFF"
         android:onClick="onclick_tv_add"
+        android:id="@+id/tv_add"
         android:layout_height="wrap_content" />
 
 </RelativeLayout>

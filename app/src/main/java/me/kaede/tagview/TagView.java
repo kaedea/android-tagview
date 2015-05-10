@@ -1,6 +1,5 @@
 package me.kaede.tagview;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -170,7 +169,7 @@ public class TagView extends RelativeLayout {
 			final Tag tag = item;
 
 			// inflate tag layout
-			View tagLayout = (View) mInflater.inflate(R.layout.item_tagview, null);
+			View tagLayout = (View) mInflater.inflate(R.layout.tagview_item, null);
 			tagLayout.setId(listIndex);
 			tagLayout.setBackgroundDrawable(getSelector(tag));
 

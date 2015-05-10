@@ -72,14 +72,13 @@ containing a value of this type.
     }
     public static final class drawable {
         public static int ic_launcher=0x7f020000;
-        public static int shape_tagview=0x7f020001;
     }
     public static final class id {
         public static int tv_tag_item_contain=0x7f040000;
         public static int tv_tag_item_delete=0x7f040001;
     }
     public static final class layout {
-        public static int item_tagview=0x7f030000;
+        public static int tagview_item=0x7f030000;
     }
     public static final class styleable {
         /** Attributes that can be used with a TagView.

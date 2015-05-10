@@ -79,7 +79,7 @@ containing a value of this type.
         public static int tv_tag_item_delete=0x7f040001;
     }
     public static final class layout {
-        public static int item_tagview=0x7f030000;
+        public static int tagview_item =0x7f030000;
     }
     public static final class styleable {
         /** Attributes that can be used with a TagView.
