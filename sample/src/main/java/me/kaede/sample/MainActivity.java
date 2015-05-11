@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Random;
+
 import me.kaede.tagview.OnTagClickListener;
 import me.kaede.tagview.OnTagDeleteListener;
 import me.kaede.tagview.Tag;
@@ -25,6 +27,8 @@ public class MainActivity extends ActionBarActivity {
                     if (editText.getText().toString()!=null&&!editText.getText().toString().equals(""))
                         string=editText.getText().toString();
                     Tag tag = new Tag(string);
+                    int r = random.nextInt(2);
+                    if (r==0)tag.isDeletable=true;
                     tagView.addTag(tag);
                     break;
                 case R.id.tv_start_activity:
@@ -35,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
     };
     private TagView tagView;
     private EditText editText;
+    private Random random;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,7 @@ public class MainActivity extends ActionBarActivity {
         //ADD TAG
         String[] tags = getResources().getStringArray(R.array.continents);
         tagView.addTags(tags);
+        random = new Random();
 
 
 		/*Tag tag1=new Tag( "TAG1");
