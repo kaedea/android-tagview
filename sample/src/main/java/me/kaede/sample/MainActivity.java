@@ -29,6 +29,8 @@ public class MainActivity extends ActionBarActivity {
                     Tag tag = new Tag(string);
                     int r = random.nextInt(2);
                     if (r==0)tag.isDeletable=true;
+                    r = random.nextInt(5);
+                    tag.layoutColor =Color.parseColor(MainActivity.this.getResources().getStringArray(R.array.colors)[r]);
                     tagView.addTag(tag);
                     break;
                 case R.id.tv_start_activity:
