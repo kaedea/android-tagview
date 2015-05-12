@@ -2,6 +2,7 @@ package me.kaede.sample;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -214,6 +215,9 @@ public class MainActivity extends ActionBarActivity {
 
 		//noinspection SimplifiableIfStatement
 		if (id == R.id.action_github) {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("https://github.com/kaedea/Android-Cloud-TagView-Plus"));
+			startActivity(intent);
 			return true;
 		}
 
