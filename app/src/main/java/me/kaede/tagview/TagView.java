@@ -136,10 +136,19 @@ public class TagView extends RelativeLayout {
 	 */
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		super.onSizeChanged(w,h,oldw,oldh);
 		mWidth = w;
 	}
 
-    @Override
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		int width = getMeasuredWidth();
+		if (width<=0)return;
+		mWidth=getMeasuredWidth();
+	}
+
+	@Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawTags();
@@ -200,9 +209,13 @@ public class TagView extends RelativeLayout {
 			if (tag.isDeletable) {
 				deletableView.setVisibility(View.VISIBLE);
 				deletableView.setText(tag.deleteIcon);
-				deletableView.setPadding(0, textPaddingTop, textPaddingRight, texPaddingBottom);
+				int offset = Utils.dipToPx(getContext(),2f);
+				deletableView.setPadding(offset, textPaddingTop, textPaddingRight+offset, texPaddingBottom);
+				/*params = (LinearLayout.LayoutParams) deletableView.getLayoutParams();
+				params.setMargins(offset, textPaddingTop, textPaddingRight+offset, texPaddingBottom);
+				deletableView.setLayoutParams(params);*/
 				deletableView.setTextColor(tag.deleteIndicatorColor);
-				deletableView.setTextSize(Utils.spToPx(getContext(), tag.deleteIndicatorSize));
+				deletableView.setTextSize(TypedValue.COMPLEX_UNIT_SP, tag.deleteIndicatorSize);
 				deletableView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -262,6 +275,9 @@ public class TagView extends RelativeLayout {
 		GradientDrawable gd_normal = new GradientDrawable();
 		gd_normal.setColor(tag.layoutColor);
 		gd_normal.setCornerRadius(tag.radius);
+		if (tag.layoutBorderSize>0){
+			gd_normal.setStroke(Utils.dipToPx(getContext(),tag.layoutBorderSize), tag.layoutBorderColor);
+		}
 		GradientDrawable gd_press = new GradientDrawable();
 		gd_press.setColor(tag.layoutColorPress);
 		gd_press.setCornerRadius(tag.radius);

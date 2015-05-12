@@ -7,13 +7,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.Random;
-
 import me.kaede.tagview.OnTagClickListener;
 import me.kaede.tagview.OnTagDeleteListener;
 import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
+
+import java.util.Random;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -73,6 +72,51 @@ public class MainActivity extends ActionBarActivity {
         String[] tags = getResources().getStringArray(R.array.continents);
         tagView.addTags(tags);
         random = new Random();
+
+	    String[] colors = this.getResources().getStringArray(R.array.colors);
+
+	    for (int i = 1;i<colors.length;i++){
+		    Tag tag = new Tag("Colorful Text");
+		    tag.tagTextColor = Color.parseColor(colors[i]);
+		    tagView.addTag(tag);
+	    }
+
+	    for (String item : colors){
+		    Tag tag = new Tag("Colorful Background");
+		    tag.layoutColor = Color.parseColor(item);
+		    tagView.addTag(tag);
+	    }
+
+	    Tag tag = new Tag("Border");
+	    tag.layoutBorderSize = 1f;
+	    tagView.addTag(tag);
+
+	    tag = new Tag("Border");
+	    tag.layoutBorderSize = 2f;
+	    tag.layoutBorderColor = Color.parseColor(colors[1]);
+	    tagView.addTag(tag);
+
+	    tag = new Tag("Border");
+	    tag.layoutBorderSize = 3f;
+	    tag.layoutBorderColor = Color.parseColor(colors[3]);
+	    tagView.addTag(tag);
+
+	    tag = new Tag("Round Corner");
+	    tag.radius = 0f;
+	    tagView.addTag(tag);
+
+	    tag = new Tag("Round Corner");
+	    tag.radius = 20f;
+	    tagView.addTag(tag);
+
+	    tag = new Tag("Round Corner");
+	    tag.radius = 60f;
+	    tagView.addTag(tag);
+
+	    tag = new Tag("Deletable");
+	    tag.isDeletable=true;
+	    tagView.addTag(tag);
+
 
 
 		/*Tag tag1=new Tag( "TAG1");

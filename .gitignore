@@ -2,3 +2,4 @@
 /.idea
 /build
 /*.iml
+/sample/*.iml

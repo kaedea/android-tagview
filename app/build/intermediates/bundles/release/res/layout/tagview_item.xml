@@ -9,7 +9,6 @@
         android:id="@+id/tv_tag_item_contain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center"
         android:ellipsize="end"
         android:singleLine="true" />
@@ -17,9 +16,9 @@
     <TextView
         android:id="@+id/tv_tag_item_delete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:singleLine="true"
         android:visibility="gone"/>
 
-</LinearLayout><!-- From: file:/D:/Git/Android-Cloud-TagView-Plus/app/src/main/res/layout/tagview_item.xml -->
+</LinearLayout><!-- From: file:/F:/Kaede/Git/Android-Cloud-TagView-Plus/app/src/main/res/layout/tagview_item.xml -->
