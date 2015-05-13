@@ -3,6 +3,7 @@ package me.kaede.tagview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
@@ -270,7 +271,8 @@ public class TagView extends RelativeLayout {
 
 	}
 
-	private StateListDrawable getSelector(Tag tag) {
+	private Drawable getSelector(Tag tag) {
+		if (tag.background!=null)return tag.background;
 		StateListDrawable states = new StateListDrawable();
 		GradientDrawable gd_normal = new GradientDrawable();
 		gd_normal.setColor(tag.layoutColor);
@@ -284,7 +286,6 @@ public class TagView extends RelativeLayout {
 		states.addState(new int[] { android.R.attr.state_pressed }, gd_press);
 		//must add state_pressed first，or state_pressed will not take effect
 		states.addState(new int[] {}, gd_normal);
-
 		return states;
 	}
 	

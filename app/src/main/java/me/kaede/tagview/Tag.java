@@ -1,6 +1,7 @@
 package me.kaede.tagview;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 
 /**
  * Tag Entity
@@ -20,6 +21,7 @@ public class Tag {
 	public String  deleteIcon;
 	public float   layoutBorderSize;
 	public int     layoutBorderColor;
+	public Drawable background;
 
 
 	public Tag(String text) {

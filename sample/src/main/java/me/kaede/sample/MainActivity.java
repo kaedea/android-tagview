@@ -120,6 +120,23 @@ public class MainActivity extends ActionBarActivity {
 	    tag.isDeletable=true;
 	    tagView.addTag(tag);
 
+	    tag = new Tag("Custom Background");
+	    tag.tagTextColor = Color.parseColor(colors[0]);
+	    tag.background = this.getResources().getDrawable(R.drawable.bg_tag);
+	    tagView.addTag(tag);
+
+	    tag = new Tag("Detail Tag");
+	    tag.tagTextColor = Color.parseColor("#FFFFFF");
+	    tag.layoutColor =  Color.parseColor("#DDDDDD");
+	    tag.layoutColorPress = Color.parseColor("#555555");
+	    //or tag.background = this.getResources().getDrawable(R.drawable.custom_bg);
+	    tag.radius = 20f;
+	    tag.tagTextSize = 14f;
+	    tag.layoutBorderSize = 1f;
+	    tag.layoutBorderColor = Color.parseColor("#FFFFFF");
+	    tag.isDeletable = true;
+	    tagView.addTag(tag);
+
 
 
 		/*Tag tag1=new Tag( "TAG1");
