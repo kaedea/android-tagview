@@ -233,7 +233,7 @@ public class MainActivity extends ActionBarActivity {
 		//noinspection SimplifiableIfStatement
 		if (id == R.id.action_github) {
 			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse("https://github.com/kaedea/Android-Cloud-TagView-Plus"));
+			intent.setData(Uri.parse("https://github.com/kaedea/"));
 			startActivity(intent);
 			return true;
 		}

@@ -18,6 +18,9 @@ An Android Cloud Tag Widget. You can edit the tag's style, and set listener of s
 - Listener of tag selecting and deleting.
 - Can be used from XML file or Java code.
 
+###Sample Apk
+[download](raw/sample-debug.apk)
+
 ###Usage
 used in xml file
 ```java
