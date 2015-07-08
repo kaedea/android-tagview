@@ -16,10 +16,10 @@ An Android Cloud Tag Widget. You can edit the tag's style, and set listener of s
 - Editable Style of Text, such as Font size and color.
 - Editable Style of Tag, Background/Pressed Color, Radius effect, Custom Background, Delete mode.
 - Listener of tag selecting and deleting.
-- Can be used from XML file or Java code.
+- Can be created from XML file or Java code.
 
 ###Sample Apk
-[download](extra/sample-debug.apk)
+[download apk](raw/sample-debug.apk)
 
 ###Usage
 used in xml file
@@ -69,13 +69,17 @@ tagView.addTag(tag);
 
 ###To-Do List
 
-- Animation
+ - Animation Support 
+ - Multi Tag Arrange Type (such as Right-To-Left arrange)
+ - Improve Performance
+
+###Problem
+TagView supports to be used as ItemView in ListView/GridView/RecyclerView, but it will remove and re-add its tags very frequently when you are flinging. Therefore the performance of TagView in ItemView maybe not good if you have a lot of ItemViews using TagView. And in this situation it is advised to use `SpannableString` instead of views. I will add `SpannableString` version of TagView to improve the performance in ItemView.
 
 ###Substitute
 
 - https://github.com/namito/TagCloudLinkView
 - https://github.com/mcharmas/android-tagview
-
 
 ##中文
 ###简介
