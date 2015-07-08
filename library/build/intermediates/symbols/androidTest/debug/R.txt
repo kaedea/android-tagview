@@ -1,0 +1,17 @@
+int attr lineMargin 0x7f010000
+int attr tagMargin 0x7f010001
+int attr textPaddingBottom 0x7f010005
+int attr textPaddingLeft 0x7f010002
+int attr textPaddingRight 0x7f010003
+int attr textPaddingTop 0x7f010004
+int drawable ic_launcher 0x7f020000
+int id tv_tag_item_contain 0x7f040000
+int id tv_tag_item_delete 0x7f040001
+int layout tagview_item 0x7f030000
+int[] styleable TagView { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005 }
+int styleable TagView_lineMargin 0
+int styleable TagView_tagMargin 1
+int styleable TagView_textPaddingBottom 5
+int styleable TagView_textPaddingLeft 2
+int styleable TagView_textPaddingRight 3
+int styleable TagView_textPaddingTop 4

@@ -62,6 +62,20 @@
                     android:singleLine="true"
                     android:textColor="#FFFFFF"
                     android:text="Activity Result"/>
+
+            <TextView
+                    android:id="@+id/tv_list_activity"
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_tagview"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="#FFFFFF"
+                    android:text="ListView Item"/>
+
         </LinearLayout>
     </LinearLayout>
 

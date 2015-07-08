@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TagView"><attr format="dimension" name="lineMargin"/><attr format="dimension" name="tagMargin"/><attr format="dimension" name="textPaddingLeft"/><attr format="dimension" name="textPaddingRight"/><attr format="dimension" name="textPaddingTop"/><attr format="dimension" name="textPaddingBottom"/></declare-styleable>
+</resources>

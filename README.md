@@ -19,7 +19,7 @@ An Android Cloud Tag Widget. You can edit the tag's style, and set listener of s
 - Can be used from XML file or Java code.
 
 ###Sample Apk
-[download](raw/sample-debug.apk)
+[download](extra/sample-debug.apk)
 
 ###Usage
 used in xml file
