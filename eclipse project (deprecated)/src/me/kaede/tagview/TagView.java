@@ -285,6 +285,7 @@ public class TagView extends RelativeLayout {
 	 */
 	public void add(Tag tag) {
 		mTags.add(tag);
+		drawTags();
 	}
 
 	/**
