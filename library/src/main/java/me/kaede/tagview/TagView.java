@@ -225,7 +225,7 @@ public class TagView extends RelativeLayout {
 						}
 					}
 				});
-				tagWidth += deletableView.getPaint().measureText(tag.deleteIcon) + textPaddingLeft + textPaddingRight;
+				tagWidth += deletableView.getPaint().measureText(tag.deleteIcon) + deletableView.getPaddingLeft() + deletableView.getPaddingRight();
 				// deletableView Padding (left & right)
 			} else {
 				deletableView.setVisibility(View.GONE);
