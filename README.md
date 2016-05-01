@@ -1,8 +1,10 @@
-## Android-Cloud-TagView-Plus
-###Introduction
-An Android Cloud Tag Widget. You can edit the tag's style, and set listener of selecting or deleting tag. Used in APP with ten millions of users. 
+## Android TagView
+This branch is an `Eclipse Project` for TagView, but it will no longer be updated since we have abandoned Eclipse :).
 
-###Screenshot
+### Introduction
+An Android Tag Widget. You can edit the tag's style, and set listener of selecting or deleting tag. Used in APP with ten millions of users.
+
+### Screenshot
 `Sample`
 
 ![Sample](https://lh3.googleusercontent.com/N3-r6Z_F0Uu3hT5Fs4H4y0SNW5pjaUuBMu3qLZsPgoQ=s600)
@@ -11,17 +13,17 @@ An Android Cloud Tag Widget. You can edit the tag's style, and set listener of s
 
 ![enter image description here](https://lh3.googleusercontent.com/-okm7rbiOw40/VUbX3t_SPxI/AAAAAAAAA_8/q1JBPKQpQyw/s600/Screenshot_2015-03-27-16-35-42.png)
 
-###Feature
+### Feature
 
 - Editable Style of Text, such as Font size and color.
 - Editable Style of Tag, Background/Pressed Color, Radius effect, Custom Background, Delete mode.
 - Listener of tag selecting and deleting.
 - Can be created from XML file or Java code.
 
-###Sample Apk
+### Sample Apk
 [download apk](raw/sample-debug.apk)
 
-###Usage
+### Usage
 used in xml file
 ```java
 <me.kaede.tagview.TagView
@@ -67,48 +69,16 @@ tag.isDeletable = true;
 tagView.addTag(tag);
 ```
 
-###To-Do List
+### To-Do List
 
- - Animation Support 
+ - Animation Support
  - Multi Tag Arrange Type (such as Right-To-Left arrange)
  - Improve Performance
 
-###Problem
+### Problem
 TagView supports to be used as ItemView in ListView/GridView/RecyclerView, but it will remove and re-add its tags very frequently when you are flinging. Therefore the performance of TagView in ItemView maybe not good if you have a lot of ItemViews using TagView. And in this situation it is advised to use `SpannableString` instead of views. I will add `SpannableString` version of TagView to improve the performance in ItemView.
 
-###Substitute
+### Substitute Project
 
 - https://github.com/namito/TagCloudLinkView
 - https://github.com/mcharmas/android-tagview
-
-##中文
-###简介
-Android上的云标签控件，除了能设置标签的样式外，还能监听标签的点击和删除事件。目前已在千万级用户的应用上使用。
-
-###特点
-
-- 支持设置标签内容的样式，如字体大小、颜色
-- 支持设置标签的颜色（或者自定义布局）、点击效果、圆角效果、是否可删除
-- 能监听标签的点击和删除事件
-- 支持从代码或者XML创建TagView
-
-###待完成
-
-- 动画效果
-
-###License
-
-    Copyright 2015 Kaede Akatsuki
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
