@@ -22,7 +22,6 @@ import java.util.List;
 
 /**
  * Android TagView Widget
- * github https://github.com/kaedea/Android-Cloud-TagView-Plus.git
  */
 public class TagView extends RelativeLayout {
 
@@ -285,9 +284,6 @@ public class TagView extends RelativeLayout {
 		states.addState(new int[]{}, gd_normal);
 		return states;
 	}
-
-
-	//----------------- public methods  -----------------//
 
 	/**
 	 * @param tag

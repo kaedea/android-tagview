@@ -3,21 +3,21 @@ package me.kaede.tagview;
 import android.graphics.Color;
 
 public class Constants {
-	
-	
+
+
 	//use dp and sp, not px
-	
-	//----------------- separator TagView-----------------//
+
+	//----------------- TagView -----------------//
 	public static final float DEFAULT_LINE_MARGIN = 5;
 	public static final float DEFAULT_TAG_MARGIN = 5;
 	public static final float DEFAULT_TAG_TEXT_PADDING_LEFT = 8;
 	public static final float DEFAULT_TAG_TEXT_PADDING_TOP = 5;
 	public static final float DEFAULT_TAG_TEXT_PADDING_RIGHT = 8;
 	public static final float DEFAULT_TAG_TEXT_PADDING_BOTTOM = 5;
-	
+
 	public static final float LAYOUT_WIDTH_OFFSET = 2;
-	
-	//----------------- separator Tag Item-----------------//
+
+	//----------------- Tag Item -----------------//
 	public static final float DEFAULT_TAG_TEXT_SIZE = 14f;
 	public static final float DEFAULT_TAG_DELETE_INDICATOR_SIZE = 14f;
 	public static final float DEFAULT_TAG_LAYOUT_BORDER_SIZE = 0f;
