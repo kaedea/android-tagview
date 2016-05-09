@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-public class Utils {
+public class ResolutionUtil {
 
 	public static int dpToPx(Context c, float dipValue) {
 		DisplayMetrics metrics = c.getResources().getDisplayMetrics();

@@ -115,12 +115,12 @@ public class TagView extends RelativeLayout {
 
 		// get AttributeSet
 		TypedArray typeArray = ctx.obtainStyledAttributes(attrs, R.styleable.TagView, defStyle, defStyle);
-		this.lineMargin = (int) typeArray.getDimension(R.styleable.TagView_lineMargin, Utils.dpToPx(this.getContext(), Constants.DEFAULT_LINE_MARGIN));
-		this.tagMargin = (int) typeArray.getDimension(R.styleable.TagView_tagMargin, Utils.dpToPx(this.getContext(), Constants.DEFAULT_TAG_MARGIN));
-		this.textPaddingLeft = (int) typeArray.getDimension(R.styleable.TagView_textPaddingLeft, Utils.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_LEFT));
-		this.textPaddingRight = (int) typeArray.getDimension(R.styleable.TagView_textPaddingRight, Utils.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_RIGHT));
-		this.textPaddingTop = (int) typeArray.getDimension(R.styleable.TagView_textPaddingTop, Utils.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_TOP));
-		this.texPaddingBottom = (int) typeArray.getDimension(R.styleable.TagView_textPaddingBottom, Utils.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_BOTTOM));
+		this.lineMargin = (int) typeArray.getDimension(R.styleable.TagView_lineMargin, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_LINE_MARGIN));
+		this.tagMargin = (int) typeArray.getDimension(R.styleable.TagView_tagMargin, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_MARGIN));
+		this.textPaddingLeft = (int) typeArray.getDimension(R.styleable.TagView_textPaddingLeft, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_LEFT));
+		this.textPaddingRight = (int) typeArray.getDimension(R.styleable.TagView_textPaddingRight, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_RIGHT));
+		this.textPaddingTop = (int) typeArray.getDimension(R.styleable.TagView_textPaddingTop, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_TOP));
+		this.texPaddingBottom = (int) typeArray.getDimension(R.styleable.TagView_textPaddingBottom, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_BOTTOM));
 		typeArray.recycle();
 	}
 
@@ -208,7 +208,7 @@ public class TagView extends RelativeLayout {
 			if (tag.isDeletable) {
 				deletableView.setVisibility(View.VISIBLE);
 				deletableView.setText(tag.deleteIcon);
-				int offset = Utils.dpToPx(getContext(), 2f);
+				int offset = ResolutionUtil.dpToPx(getContext(), 2f);
 				deletableView.setPadding(offset, textPaddingTop, textPaddingRight + offset, texPaddingBottom);
 				/*params = (LinearLayout.LayoutParams) deletableView.getLayoutParams();
 				params.setMargins(offset, textPaddingTop, textPaddingRight+offset, texPaddingBottom);
@@ -236,7 +236,7 @@ public class TagView extends RelativeLayout {
 			//add margin of each line
 			tagParams.bottomMargin = lineMargin;
 
-			if (mWidth <= total + tagMargin + tagWidth + Utils.dpToPx(this.getContext(), Constants.LAYOUT_WIDTH_OFFSET)) {
+			if (mWidth <= total + tagMargin + tagWidth + ResolutionUtil.dpToPx(this.getContext(), Constants.LAYOUT_WIDTH_OFFSET)) {
 				//need to add in new line
 				tagParams.addRule(RelativeLayout.BELOW, index_bottom);
 				// initialize total param (layout padding left & layout padding right)
@@ -274,7 +274,7 @@ public class TagView extends RelativeLayout {
 		gd_normal.setColor(tag.layoutColor);
 		gd_normal.setCornerRadius(tag.radius);
 		if (tag.layoutBorderSize > 0) {
-			gd_normal.setStroke(Utils.dpToPx(getContext(), tag.layoutBorderSize), tag.layoutBorderColor);
+			gd_normal.setStroke(ResolutionUtil.dpToPx(getContext(), tag.layoutBorderSize), tag.layoutBorderColor);
 		}
 		GradientDrawable gd_press = new GradientDrawable();
 		gd_press.setColor(tag.layoutColorPress);
@@ -331,7 +331,7 @@ public class TagView extends RelativeLayout {
 	}
 
 	public void setLineMargin(float lineMargin) {
-		this.lineMargin = Utils.dpToPx(getContext(), lineMargin);
+		this.lineMargin = ResolutionUtil.dpToPx(getContext(), lineMargin);
 	}
 
 	public int getTagMargin() {
@@ -339,7 +339,7 @@ public class TagView extends RelativeLayout {
 	}
 
 	public void setTagMargin(float tagMargin) {
-		this.tagMargin = Utils.dpToPx(getContext(), tagMargin);
+		this.tagMargin = ResolutionUtil.dpToPx(getContext(), tagMargin);
 	}
 
 	public int getTextPaddingLeft() {
@@ -347,7 +347,7 @@ public class TagView extends RelativeLayout {
 	}
 
 	public void setTextPaddingLeft(float textPaddingLeft) {
-		this.textPaddingLeft = Utils.dpToPx(getContext(), textPaddingLeft);
+		this.textPaddingLeft = ResolutionUtil.dpToPx(getContext(), textPaddingLeft);
 	}
 
 	public int getTextPaddingRight() {
@@ -355,7 +355,7 @@ public class TagView extends RelativeLayout {
 	}
 
 	public void setTextPaddingRight(float textPaddingRight) {
-		this.textPaddingRight = Utils.dpToPx(getContext(), textPaddingRight);
+		this.textPaddingRight = ResolutionUtil.dpToPx(getContext(), textPaddingRight);
 	}
 
 	public int getTextPaddingTop() {
@@ -363,7 +363,7 @@ public class TagView extends RelativeLayout {
 	}
 
 	public void setTextPaddingTop(float textPaddingTop) {
-		this.textPaddingTop = Utils.dpToPx(getContext(), textPaddingTop);
+		this.textPaddingTop = ResolutionUtil.dpToPx(getContext(), textPaddingTop);
 	}
 
 	public int getTexPaddingBottom() {
@@ -371,7 +371,7 @@ public class TagView extends RelativeLayout {
 	}
 
 	public void setTexPaddingBottom(float texPaddingBottom) {
-		this.texPaddingBottom = Utils.dpToPx(getContext(), texPaddingBottom);
+		this.texPaddingBottom = ResolutionUtil.dpToPx(getContext(), texPaddingBottom);
 	}
 
 	/**
