@@ -1,5 +1,6 @@
 package me.kaede.tagview;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.res.TypedArray;
@@ -7,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -33,7 +35,6 @@ public class TagView extends RelativeLayout {
     private OnTagDeleteListener mDeleteListener;
     private int mWidth;
     private boolean mIsInit = false;
-    private boolean mNeedDraw = false;
     private int lineMargin;
     private int tagMargin;
     private int textPaddingLeft;
@@ -41,27 +42,37 @@ public class TagView extends RelativeLayout {
     private int textPaddingTop;
     private int texPaddingBottom;
 
-    public TagView(Context ctx) {
-        super(ctx, null);
-        init(ctx, null, 0);
+    public TagView(Context context) {
+        super(context, null);
+        LogUtil.v(TAG,"[TagView]constructor 1");
+        init(context, null, 0, 0);
     }
 
-    public TagView(Context ctx, AttributeSet attrs) {
-        super(ctx, attrs);
-        init(ctx, attrs, 0);
+    public TagView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        LogUtil.v(TAG,"[TagView]constructor 2");
+        init(context, attrs, 0, 0);
     }
 
     public TagView(Context ctx, AttributeSet attrs, int defStyle) {
         super(ctx, attrs, defStyle);
-        init(ctx, attrs, defStyle);
+        LogUtil.v(TAG,"[TagView]constructor 3");
+        init(ctx, attrs, defStyle, defStyle);
     }
 
-    private void init(Context context, AttributeSet attrs, int defStyle) {
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public TagView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        LogUtil.v(TAG,"[TagView]constructor 4");
+        init(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    private void init(Context context, AttributeSet attrs, int defStyle, int defStyleRes) {
+        LogUtil.v(TAG,"[init]");
         Constants.DEBUG = (context.getApplicationContext().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        LogUtil.d(TAG,"[init]");
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // get AttributeSet
-        TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.TagView, defStyle, defStyle);
+        TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.TagView, defStyle, defStyleRes);
         this.lineMargin = (int) typeArray.getDimension(R.styleable.TagView_lineMargin, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_LINE_MARGIN));
         this.tagMargin = (int) typeArray.getDimension(R.styleable.TagView_tagMargin, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_MARGIN));
         this.textPaddingLeft = (int) typeArray.getDimension(R.styleable.TagView_textPaddingLeft, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_LEFT));
@@ -76,25 +87,19 @@ public class TagView extends RelativeLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        LogUtil.d(TAG,"[onSizeChanged]w = " + w);
+        LogUtil.v(TAG,"[onSizeChanged]w = " + w);
         mWidth = w;
-        if (!mIsInit) {
-            mIsInit = true;
-            drawTags();
-        }
+        drawTags();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = getMeasuredWidth();
-        LogUtil.d(TAG,"[onMeasure]getMeasuredWidth = " + width);
-        if (width <= 0) return;
-        if (width != mWidth) {
-            mWidth = getMeasuredWidth();
-            mNeedDraw = true;
-            drawTags();
-        }
+        // int width = getMeasuredWidth();
+        // LogUtil.v(TAG,"[onMeasure]getMeasuredWidth = " + width);
+        // if (width <= 0) return;
+        // mWidth = getMeasuredWidth();
+        // drawTags();
     }
 
     @Override
@@ -102,12 +107,12 @@ public class TagView extends RelativeLayout {
         super.onDraw(canvas);
         // View#onDraw is disabled in view group;
         // enable View#onDraw for view group : View#setWillNotDraw(false);
-        LogUtil.d(TAG,"[onDraw]");
+        LogUtil.v(TAG,"[onDraw]");
     }
 
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
-        LogUtil.d(TAG,"[onVisibilityChanged]");
+        LogUtil.v(TAG,"[onVisibilityChanged]");
         if (changedView == this){
             if (visibility == View.VISIBLE){
                 drawTags();
@@ -116,11 +121,18 @@ public class TagView extends RelativeLayout {
         super.onVisibilityChanged(changedView, visibility);
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        LogUtil.v(TAG,"[onAttachedToWindow]");
+    }
+
     private void drawTags() {
-        LogUtil.d(TAG,"[drawTags]mIsInit = " + mIsInit + ", mNeedDraw = " + mNeedDraw);
+        LogUtil.v(TAG,"[drawTags]mIsInit = " + mIsInit + ", visibility = " + (getVisibility() == View.VISIBLE));
+        LogUtil.v(TAG,"[drawTags]mWidth = " + mWidth);
         if (!mIsInit) return;
         if (getVisibility() != View.VISIBLE) return;
-        LogUtil.i(TAG,"[drawTags]add tags");
+        LogUtil.d(TAG,"[drawTags]add tags");
         // clear all tag
         removeAllViews();
         // layout padding left & layout padding right
@@ -211,7 +223,6 @@ public class TagView extends RelativeLayout {
             tag_pre = tag;
             listIndex++;
         }
-        mNeedDraw = false;
     }
 
     private Drawable getSelector(Tag tag) {
@@ -233,18 +244,18 @@ public class TagView extends RelativeLayout {
     }
 
     public void addTag(Tag tag) {
+        LogUtil.v(TAG,"[addTag]");
         mTags.add(tag);
-        mNeedDraw = true;
         drawTags();
     }
 
     public void addTags(String[] tags) {
+        LogUtil.v(TAG,"[addTags]");
         if (tags == null || tags.length <= 0) return;
         for (String item : tags) {
             Tag tag = new Tag(item);
             mTags.add(tag);
         }
-        mNeedDraw = true;
         drawTags();
     }
 
@@ -253,11 +264,13 @@ public class TagView extends RelativeLayout {
     }
 
     public void remove(int position) {
+        LogUtil.v(TAG,"[remove]position = " + position);
         mTags.remove(position);
         drawTags();
     }
 
     public void removeAllTags() {
+        LogUtil.v(TAG,"[removeAllTags]");
         mTags.clear();
         drawTags();
     }
