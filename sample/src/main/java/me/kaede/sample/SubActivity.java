@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class SecondActivity extends ActionBarActivity implements View.OnClickListener {
+public class SubActivity extends ActionBarActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,6 @@ public class SecondActivity extends ActionBarActivity implements View.OnClickLis
        this.setResult(RESULT_OK);
         finish();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

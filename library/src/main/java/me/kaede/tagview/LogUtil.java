@@ -3,10 +3,9 @@ package me.kaede.tagview;
 import android.util.Log;
 
 /**
- * Copyright (c) 2016 BiliBili Inc.
  * Created by kaede on 2016/4/11.
  */
-public class LogUtil {
+class LogUtil {
 
     public static final String PREFIX = "[kaede]";
 

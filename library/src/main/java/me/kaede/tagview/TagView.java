@@ -7,12 +7,12 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,101 +25,43 @@ import java.util.List;
  * Android TagView Widget
  */
 public class TagView extends RelativeLayout {
-
     public static final String TAG = "TagView";
-    /**
-     * tag list
-     */
-    private List<Tag> mTags = new ArrayList<Tag>();
 
+    private List<Tag> mTags = new ArrayList<>();
     private LayoutInflater mInflater;
-    private ViewTreeObserver mViewTreeObserber;
-
-    /**
-     * listener
-     */
     private OnTagClickListener mClickListener;
     private OnTagDeleteListener mDeleteListener;
-
-    /**
-     * view size param
-     */
     private int mWidth;
+    private boolean mIsInit = false;
+    private boolean mNeedDraw = false;
+    private int lineMargin;
+    private int tagMargin;
+    private int textPaddingLeft;
+    private int textPaddingRight;
+    private int textPaddingTop;
+    private int texPaddingBottom;
 
-    /**
-     * layout initialize flag
-     */
-    private boolean mInitialized = false;
-
-    /**
-     * custom layout param
-     */
-    int lineMargin;
-    int tagMargin;
-    int textPaddingLeft;
-    int textPaddingRight;
-    int textPaddingTop;
-    int texPaddingBottom;
-
-
-    /**
-     * constructor
-     *
-     * @param ctx
-     */
     public TagView(Context ctx) {
         super(ctx, null);
-        initialize(ctx, null, 0);
+        init(ctx, null, 0);
     }
 
-    /**
-     * constructor
-     *
-     * @param ctx
-     * @param attrs
-     */
     public TagView(Context ctx, AttributeSet attrs) {
         super(ctx, attrs);
-        initialize(ctx, attrs, 0);
+        init(ctx, attrs, 0);
     }
 
-    /**
-     * constructor
-     *
-     * @param ctx
-     * @param attrs
-     * @param defStyle
-     */
     public TagView(Context ctx, AttributeSet attrs, int defStyle) {
         super(ctx, attrs, defStyle);
-        initialize(ctx, attrs, defStyle);
+        init(ctx, attrs, defStyle);
     }
 
-    /**
-     * initalize instance
-     *
-     * @param ctx
-     * @param attrs
-     * @param defStyle
-     */
-    private void initialize(Context ctx, AttributeSet attrs, int defStyle) {
-        Constants.DEBUG = (ctx.getApplicationContext().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        LogUtil.d(TAG,"[initialize]");
-        mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mViewTreeObserber = getViewTreeObserver();
-        mViewTreeObserber.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                LogUtil.d(TAG,"[onGlobalLayout]width = " + getMeasuredWidth());
-                if (!mInitialized) {
-                    mInitialized = true;
-                    drawTags();
-                }
-            }
-        });
-
+    private void init(Context context, AttributeSet attrs, int defStyle) {
+        Constants.DEBUG = (context.getApplicationContext().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        LogUtil.d(TAG,"[init]");
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // get AttributeSet
-        TypedArray typeArray = ctx.obtainStyledAttributes(attrs, R.styleable.TagView, defStyle, defStyle);
+        TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.TagView, defStyle, defStyle);
         this.lineMargin = (int) typeArray.getDimension(R.styleable.TagView_lineMargin, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_LINE_MARGIN));
         this.tagMargin = (int) typeArray.getDimension(R.styleable.TagView_tagMargin, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_MARGIN));
         this.textPaddingLeft = (int) typeArray.getDimension(R.styleable.TagView_textPaddingLeft, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_LEFT));
@@ -127,25 +69,17 @@ public class TagView extends RelativeLayout {
         this.textPaddingTop = (int) typeArray.getDimension(R.styleable.TagView_textPaddingTop, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_TOP));
         this.texPaddingBottom = (int) typeArray.getDimension(R.styleable.TagView_textPaddingBottom, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_BOTTOM));
         typeArray.recycle();
-        // mInitialized = true;
+        mWidth = ResolutionUtil.getScreenWidth(context);
+        mIsInit = true;
     }
 
-
-    /**
-     * onSizeChanged
-     *
-     * @param w
-     * @param h
-     * @param oldw
-     * @param oldh
-     */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        LogUtil.d(TAG,"[onSizeChanged]");
+        LogUtil.d(TAG,"[onSizeChanged]w = " + w);
         mWidth = w;
-        if (!mInitialized) {
-            mInitialized = true;
+        if (!mIsInit) {
+            mIsInit = true;
             drawTags();
         }
     }
@@ -156,29 +90,24 @@ public class TagView extends RelativeLayout {
         int width = getMeasuredWidth();
         LogUtil.d(TAG,"[onMeasure]getMeasuredWidth = " + width);
         if (width <= 0) return;
-        mWidth = getMeasuredWidth();
+        if (width != mWidth) {
+            mWidth = getMeasuredWidth();
+            mNeedDraw = true;
+            drawTags();
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        // View#onDraw is disabled in view group;
+        // enable View#onDraw for view group : View#setWillNotDraw(false);
         LogUtil.d(TAG,"[onDraw]");
-        drawTags();
     }
 
     @Override
-    public boolean isAttachedToWindow() {
-        return super.isAttachedToWindow();
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        LogUtil.d(TAG,"[onAttachedToWindow]");
-    }
-
-    @Override
-    protected void onVisibilityChanged(View changedView, int visibility) {
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        LogUtil.d(TAG,"[onVisibilityChanged]");
         if (changedView == this){
             if (visibility == View.VISIBLE){
                 drawTags();
@@ -187,24 +116,15 @@ public class TagView extends RelativeLayout {
         super.onVisibilityChanged(changedView, visibility);
     }
 
-    /**
-     * tag draw
-     */
     private void drawTags() {
-        LogUtil.d(TAG,"[drawTags]");
-
-        if (!mInitialized) {
-            return;
-        }
-
+        LogUtil.d(TAG,"[drawTags]mIsInit = " + mIsInit + ", mNeedDraw = " + mNeedDraw);
+        if (!mIsInit) return;
+        if (getVisibility() != View.VISIBLE) return;
         LogUtil.i(TAG,"[drawTags]add tags");
-
         // clear all tag
         removeAllViews();
-
         // layout padding left & layout padding right
         float total = getPaddingLeft() + getPaddingRight();
-
         int listIndex = 1;// List Index
         int index_bottom = 1;// The Tag to add below
         int index_header = 1;// The header tag of this line
@@ -212,12 +132,10 @@ public class TagView extends RelativeLayout {
         for (Tag item : mTags) {
             final int position = listIndex - 1;
             final Tag tag = item;
-
             // inflate tag layout
             View tagLayout = (View) mInflater.inflate(R.layout.tagview_item, null);
             tagLayout.setId(listIndex);
             tagLayout.setBackgroundDrawable(getSelector(tag));
-
             // tag text
             TextView tagView = (TextView) tagLayout.findViewById(R.id.tv_tag_item_contain);
             tagView.setText(tag.text);
@@ -231,15 +149,13 @@ public class TagView extends RelativeLayout {
                 @Override
                 public void onClick(View v) {
                     if (mClickListener != null) {
-                        mClickListener.onTagClick(tag, position);
+                        mClickListener.onTagClick(position, tag);
                     }
                 }
             });
-
             // calculate　of tag layout width
             float tagWidth = tagView.getPaint().measureText(tag.text) + textPaddingLeft + textPaddingRight;
             // tagView padding (left & right)
-
             // deletable text
             TextView deletableView = (TextView) tagLayout.findViewById(R.id.tv_tag_item_delete);
             if (tag.isDeletable) {
@@ -257,7 +173,7 @@ public class TagView extends RelativeLayout {
                     public void onClick(View v) {
                         TagView.this.remove(position);
                         if (mDeleteListener != null) {
-                            mDeleteListener.onTagDeleted(tag, position);
+                            mDeleteListener.onTagDeleted(position, tag);
                         }
                     }
                 });
@@ -266,13 +182,10 @@ public class TagView extends RelativeLayout {
             } else {
                 deletableView.setVisibility(View.GONE);
             }
-
             LayoutParams tagParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             //tagParams.setMargins(0, 0, 0, 0);
-
             //add margin of each line
             tagParams.bottomMargin = lineMargin;
-
             if (mWidth <= total + tagMargin + tagWidth + ResolutionUtil.dpToPx(this.getContext(), Constants.LAYOUT_WIDTH_OFFSET)) {
                 //need to add in new line
                 tagParams.addRule(RelativeLayout.BELOW, index_bottom);
@@ -288,19 +201,17 @@ public class TagView extends RelativeLayout {
                     tagParams.addRule(RelativeLayout.RIGHT_OF, listIndex - 1);
                     tagParams.leftMargin = tagMargin;
                     total += tagMargin;
-                    if (tag_pre != null && tag_pre.tagTextSize < tag.tagTextSize) {
+                    if (tag_pre.tagTextSize < tag.tagTextSize) {
                         index_bottom = listIndex;
                     }
                 }
-
-
             }
             total += tagWidth;
             addView(tagLayout, tagParams);
             tag_pre = tag;
             listIndex++;
         }
-        requestLayout();
+        mNeedDraw = false;
     }
 
     private Drawable getSelector(Tag tag) {
@@ -321,36 +232,26 @@ public class TagView extends RelativeLayout {
         return states;
     }
 
-    /**
-     * @param tag
-     */
     public void addTag(Tag tag) {
         mTags.add(tag);
+        mNeedDraw = true;
         drawTags();
     }
 
     public void addTags(String[] tags) {
-        if (tags == null) return;
+        if (tags == null || tags.length <= 0) return;
         for (String item : tags) {
             Tag tag = new Tag(item);
-            addTag(tag);
+            mTags.add(tag);
         }
+        mNeedDraw = true;
+        drawTags();
     }
 
-    /**
-     * get tag list
-     *
-     * @return mTags TagObject List
-     */
     public List<Tag> getTags() {
         return mTags;
     }
 
-    /**
-     * remove tag
-     *
-     * @param position
-     */
     public void remove(int position) {
         mTags.remove(position);
         drawTags();
@@ -360,7 +261,6 @@ public class TagView extends RelativeLayout {
         mTags.clear();
         drawTags();
     }
-
 
     public int getLineMargin() {
         return lineMargin;
@@ -410,20 +310,10 @@ public class TagView extends RelativeLayout {
         this.texPaddingBottom = ResolutionUtil.dpToPx(getContext(), texPaddingBottom);
     }
 
-    /**
-     * setter for OnTagSelectListener
-     *
-     * @param clickListener
-     */
     public void setOnTagClickListener(OnTagClickListener clickListener) {
         mClickListener = clickListener;
     }
 
-    /**
-     * setter for OnTagDeleteListener
-     *
-     * @param deleteListener
-     */
     public void setOnTagDeleteListener(OnTagDeleteListener deleteListener) {
         mDeleteListener = deleteListener;
     }

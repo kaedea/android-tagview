@@ -16,3 +16,7 @@ android {
         }
     }
 }
+dependencies {
+    compile 'com.android.support:support-annotations:23.3.0'
+}
+

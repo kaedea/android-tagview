@@ -28,49 +28,42 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         findViewById(R.id.tv_add).setOnClickListener(this);
         findViewById(R.id.tv_start_activity).setOnClickListener(this);
         findViewById(R.id.tv_list_activity).setOnClickListener(this);
         findViewById(R.id.tv_recyclerview_activity).setOnClickListener(this);
         editText = (EditText) findViewById(R.id.edit_tag);
-
         tagView = (TagView) this.findViewById(R.id.tagview);
         //SET LISTENER
         tagView.setOnTagClickListener(new OnTagClickListener() {
 
             @Override
-            public void onTagClick(Tag tag, int position) {
+            public void onTagClick(int position, Tag tag) {
                 Toast.makeText(MainActivity.this, "click tag id = " + tag.id + " position = " + position, Toast.LENGTH_SHORT).show();
             }
         });
         tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
 
             @Override
-            public void onTagDeleted(Tag tag, int position) {
+            public void onTagDeleted(int position, Tag tag) {
                 Toast.makeText(MainActivity.this, "delete tag id = " + tag.id + " position =" + position, Toast.LENGTH_SHORT).show();
             }
         });
-
         //ADD TAG
         String[] tags = getResources().getStringArray(R.array.continents);
         tagView.addTags(tags);
         random = new Random();
-
         String[] colors = this.getResources().getStringArray(R.array.colors);
-
         for (int i = 1; i < colors.length; i++) {
             Tag tag = new Tag("Colorful Text");
             tag.tagTextColor = Color.parseColor(colors[i]);
             tagView.addTag(tag);
         }
-
         for (String item : colors) {
             Tag tag = new Tag("Colorful Background");
             tag.layoutColor = Color.parseColor(item);
             tagView.addTag(tag);
         }
-
         Tag tag = new Tag("Border");
         tag.layoutBorderSize = 1f;
         tagView.addTag(tag);
@@ -117,8 +110,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         tag.layoutBorderColor = Color.parseColor("#FFFFFF");
         tag.isDeletable = true;
         tagView.addTag(tag);
-
-
     }
 
     @Override
@@ -138,16 +129,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
         if (id == R.id.action_github) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("https://github.com/kaedea/"));
             startActivity(intent);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -166,7 +154,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 tagView.addTag(tag);
                 break;
             case R.id.tv_start_activity:
-                startActivityForResult(new Intent(MainActivity.this, SecondActivity.class), 0);
+                startActivityForResult(new Intent(MainActivity.this, SubActivity.class), 0);
                 break;
             case R.id.tv_list_activity:
                 startActivity(new Intent(MainActivity.this, ListViewActivity.class));
