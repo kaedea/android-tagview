@@ -11,6 +11,9 @@ import android.widget.TextView;
 import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RecyclerViewActivity extends ActionBarActivity {
     private String[] mDataSet = new String[]{"TEXT","TEXT","TEXT","TEXT","TEXT","TEXT","TEXT","TEXT","TEXT","TEXT","TEXT",
             "TEXT","TEXT","TEXT","TEXT","TEXT","TEXT","TEXT","TEXT","TEXT","TEXT"};
@@ -62,8 +65,10 @@ public class RecyclerViewActivity extends ActionBarActivity {
                 holder.textView.setText(mDataSet[position]);
             } else if (holder.tagView != null){
                 holder.tagView.removeAllTags();
-                holder.tagView.addTag(new Tag("FOOTER 1"));
-                holder.tagView.addTag(new Tag("FOOTER 2"));
+                List<Tag> tagList = new ArrayList<>();
+                tagList.add(new Tag("FOOTER 1"));
+                tagList.add(new Tag("FOOTER 2"));
+                holder.tagView.addTags(tagList);
             }
         }
 

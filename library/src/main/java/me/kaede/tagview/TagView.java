@@ -29,18 +29,17 @@ import java.util.List;
 public class TagView extends RelativeLayout {
     public static final String TAG = "TagView";
 
-    private List<Tag> mTags = new ArrayList<>();
-    private LayoutInflater mInflater;
-    private OnTagClickListener mClickListener;
-    private OnTagDeleteListener mDeleteListener;
     private int mWidth;
-    private boolean mIsInit = false;
     private int lineMargin;
     private int tagMargin;
     private int textPaddingLeft;
     private int textPaddingRight;
     private int textPaddingTop;
     private int texPaddingBottom;
+    private List<Tag> mTags = new ArrayList<>();
+    private LayoutInflater mInflater;
+    private OnTagClickListener mClickListener;
+    private OnTagDeleteListener mDeleteListener;
 
     public TagView(Context context) {
         super(context, null);
@@ -81,7 +80,7 @@ public class TagView extends RelativeLayout {
         this.texPaddingBottom = (int) typeArray.getDimension(R.styleable.TagView_textPaddingBottom, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_BOTTOM));
         typeArray.recycle();
         mWidth = ResolutionUtil.getScreenWidth(context);
-        mIsInit = true;
+        // this.setWillNotDraw(false);
     }
 
     @Override
@@ -89,17 +88,17 @@ public class TagView extends RelativeLayout {
         super.onSizeChanged(w, h, oldw, oldh);
         LogUtil.v(TAG,"[onSizeChanged]w = " + w);
         mWidth = w;
-        drawTags();
+        // drawTags();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        // int width = getMeasuredWidth();
-        // LogUtil.v(TAG,"[onMeasure]getMeasuredWidth = " + width);
-        // if (width <= 0) return;
-        // mWidth = getMeasuredWidth();
-        // drawTags();
+        LogUtil.v(TAG,"[onMeasure]getMeasuredWidth = " + getMeasuredWidth());
+        /*int width = getMeasuredWidth();
+        if (width <= 0) return;
+        mWidth = getMeasuredWidth();
+        drawTags();*/
     }
 
     @Override
@@ -108,16 +107,17 @@ public class TagView extends RelativeLayout {
         // View#onDraw is disabled in view group;
         // enable View#onDraw for view group : View#setWillNotDraw(false);
         LogUtil.v(TAG,"[onDraw]");
+        // drawTags();
     }
 
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         LogUtil.v(TAG,"[onVisibilityChanged]");
-        if (changedView == this){
+        /*if (changedView == this){
             if (visibility == View.VISIBLE){
                 drawTags();
             }
-        }
+        }*/
         super.onVisibilityChanged(changedView, visibility);
     }
 
@@ -128,11 +128,10 @@ public class TagView extends RelativeLayout {
     }
 
     private void drawTags() {
-        LogUtil.v(TAG,"[drawTags]mIsInit = " + mIsInit + ", visibility = " + (getVisibility() == View.VISIBLE));
-        LogUtil.v(TAG,"[drawTags]mWidth = " + mWidth);
-        if (!mIsInit) return;
+        LogUtil.v(TAG,"[drawTags]visibility = " + (getVisibility() == View.VISIBLE));
         if (getVisibility() != View.VISIBLE) return;
-        LogUtil.d(TAG,"[drawTags]add tags");
+        LogUtil.v(TAG,"[drawTags]mWidth = " + mWidth);
+        LogUtil.d(TAG,"[drawTags]add tags, tag count = " + mTags.size());
         // clear all tag
         removeAllViews();
         // layout padding left & layout padding right
@@ -145,7 +144,7 @@ public class TagView extends RelativeLayout {
             final int position = listIndex - 1;
             final Tag tag = item;
             // inflate tag layout
-            View tagLayout = (View) mInflater.inflate(R.layout.tagview_item, null);
+            View tagLayout = mInflater.inflate(R.layout.tagview_item, null);
             tagLayout.setId(listIndex);
             tagLayout.setBackgroundDrawable(getSelector(tag));
             // tag text
@@ -256,6 +255,13 @@ public class TagView extends RelativeLayout {
             Tag tag = new Tag(item);
             mTags.add(tag);
         }
+        drawTags();
+    }
+
+    public void addTags(List<Tag> tagList) {
+        LogUtil.v(TAG,"[addTags]");
+        if (tagList == null || tagList.size() <= 0) return;
+        mTags.addAll(tagList);
         drawTags();
     }
 

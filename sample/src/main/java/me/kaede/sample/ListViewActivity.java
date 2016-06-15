@@ -10,6 +10,7 @@ import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ListViewActivity extends ActionBarActivity {
@@ -24,7 +25,7 @@ public class ListViewActivity extends ActionBarActivity {
 		listView.setAdapter(adapter);
 		List<ListData> datas = new ArrayList<>();
 		for (int i = 0;i<=50;i++){
-			datas.add(new ListData("List Item " + i));
+			datas.add(new ListData("ITEM " + i));
 		}
 		adapter.setDatas(datas);
 	}
@@ -76,16 +77,18 @@ public class ListViewActivity extends ActionBarActivity {
 			holder = (ViewHolder) convertView.getTag();
 			if (holder!=null){
 				holder.tagView.removeAllTags();
+				List<Tag> tags = new ArrayList<>();
 				Tag tag;
 				tag = new Tag(getItem(position).text);
 				tag.layoutColor =  Color.parseColor("#F06292");
-				holder.tagView.addTag(tag);
+				tags.add(tag);
 				tag = new Tag(getItem(position).text);
 				tag.layoutColor =  Color.parseColor("#90CAF9");
-				holder.tagView.addTag(tag);
+				tags.add(tag);
 				tag = new Tag(getItem(position).text);
 				tag.layoutColor =  Color.parseColor("#80DEEA");
-				holder.tagView.addTag(tag);
+				tags.add(tag);
+				holder.tagView.addTags(tags);
 			}
 			return convertView;
 		}
