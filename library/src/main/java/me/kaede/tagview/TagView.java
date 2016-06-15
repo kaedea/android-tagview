@@ -40,6 +40,7 @@ public class TagView extends RelativeLayout {
     private LayoutInflater mInflater;
     private OnTagClickListener mClickListener;
     private OnTagDeleteListener mDeleteListener;
+    private boolean mIsNeedDraw;
 
     public TagView(Context context) {
         super(context, null);
@@ -80,7 +81,7 @@ public class TagView extends RelativeLayout {
         this.texPaddingBottom = (int) typeArray.getDimension(R.styleable.TagView_textPaddingBottom, ResolutionUtil.dpToPx(this.getContext(), Constants.DEFAULT_TAG_TEXT_PADDING_BOTTOM));
         typeArray.recycle();
         mWidth = ResolutionUtil.getScreenWidth(context);
-        // this.setWillNotDraw(false);
+        this.setWillNotDraw(false);
     }
 
     @Override
@@ -107,7 +108,9 @@ public class TagView extends RelativeLayout {
         // View#onDraw is disabled in view group;
         // enable View#onDraw for view group : View#setWillNotDraw(false);
         LogUtil.v(TAG,"[onDraw]");
-        // drawTags();
+        if (mIsNeedDraw) {
+            drawTags();
+        }
     }
 
     @Override
@@ -133,7 +136,7 @@ public class TagView extends RelativeLayout {
         LogUtil.v(TAG,"[drawTags]mWidth = " + mWidth);
         LogUtil.d(TAG,"[drawTags]add tags, tag count = " + mTags.size());
         // clear all tag
-        removeAllViews();
+        removeAllViewsInLayout();
         // layout padding left & layout padding right
         float total = getPaddingLeft() + getPaddingRight();
         int listIndex = 1;// List Index
@@ -144,7 +147,7 @@ public class TagView extends RelativeLayout {
             final int position = listIndex - 1;
             final Tag tag = item;
             // inflate tag layout
-            View tagLayout = mInflater.inflate(R.layout.tagview_item, null);
+            View tagLayout = mInflater.inflate(R.layout.tagview_item, this, false);
             tagLayout.setId(listIndex);
             tagLayout.setBackgroundDrawable(getSelector(tag));
             // tag text
@@ -164,10 +167,9 @@ public class TagView extends RelativeLayout {
                     }
                 }
             });
-            // calculate　of tag layout width
+            // calculate　of tag layout width, tagView padding (left & right)
             float tagWidth = tagView.getPaint().measureText(tag.text) + textPaddingLeft + textPaddingRight;
-            // tagView padding (left & right)
-            // deletable text
+            // deletable icon
             TextView deletableView = (TextView) tagLayout.findViewById(R.id.tv_tag_item_delete);
             if (tag.isDeletable) {
                 deletableView.setVisibility(View.VISIBLE);
@@ -222,6 +224,7 @@ public class TagView extends RelativeLayout {
             tag_pre = tag;
             listIndex++;
         }
+        mIsNeedDraw = false;
     }
 
     private Drawable getSelector(Tag tag) {
@@ -245,7 +248,8 @@ public class TagView extends RelativeLayout {
     public void addTag(Tag tag) {
         LogUtil.v(TAG,"[addTag]");
         mTags.add(tag);
-        drawTags();
+        mIsNeedDraw = true;
+        postInvalidate();
     }
 
     public void addTags(String[] tags) {
@@ -255,14 +259,16 @@ public class TagView extends RelativeLayout {
             Tag tag = new Tag(item);
             mTags.add(tag);
         }
-        drawTags();
+        mIsNeedDraw = true;
+        postInvalidate();
     }
 
     public void addTags(List<Tag> tagList) {
         LogUtil.v(TAG,"[addTags]");
         if (tagList == null || tagList.size() <= 0) return;
         mTags.addAll(tagList);
-        drawTags();
+        mIsNeedDraw = true;
+        postInvalidate();
     }
 
     public List<Tag> getTags() {
@@ -272,13 +278,15 @@ public class TagView extends RelativeLayout {
     public void remove(int position) {
         LogUtil.v(TAG,"[remove]position = " + position);
         mTags.remove(position);
-        drawTags();
+        mIsNeedDraw = true;
+        postInvalidate();
     }
 
     public void removeAllTags() {
         LogUtil.v(TAG,"[removeAllTags]");
         mTags.clear();
-        drawTags();
+        mIsNeedDraw = true;
+        postInvalidate();
     }
 
     public int getLineMargin() {
